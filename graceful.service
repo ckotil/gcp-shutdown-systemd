@@ -1,0 +1,11 @@
+[Unit]
+Description=Run First to avoid slow gcp shutdown script which runs after your services stop
+After=rsyslog.target network.target nginx.service
+
+[Service]
+Type=oneshot
+ExecStop=/bin/sh -c '/usr/bin/perl /usr/local/bin/update_something.pl; /bin/sleep 5'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
